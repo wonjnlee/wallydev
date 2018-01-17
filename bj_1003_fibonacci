@@ -42,7 +42,6 @@ int main(void) {
         fibonacci(arr[i]);
         cout<<zero_count<<" "<<one_count<<endl;
         zero_count = 0; one_count = 0;
-        //cout<<arr[i]<<endl;
     }
     return 0;
 }
