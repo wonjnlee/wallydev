@@ -1,0 +1,48 @@
+// https://www.acmicpc.net/problem/1003
+
+#include <iostream>
+#include <algorithm>
+#include <vector>
+using namespace std;
+
+int zero_count = 0;
+int one_count = 0;
+int* fibo = new int[1000];
+
+int fibonacci(int n)
+{
+    if(n == 0)
+    {
+        zero_count++;
+        return fibo[0];
+    }
+    else if(n == 1)
+    {
+        one_count++;
+        return fibo[1];
+    }
+    else
+    {
+        return fibonacci(n-1) + fibonacci(n-2);
+    }
+}
+
+int main(void) {
+    // insert code here...
+    int count, num;
+    cin>>count;
+    vector <int> arr;
+    fibo[0] = 0; fibo[1] = 1;
+    for(int i=0; i<count; i++) {
+        cin>>num;
+        arr.push_back(num);
+    }
+    for(int i=0; i<arr.size(); i++)
+    {
+        fibonacci(arr[i]);
+        cout<<zero_count<<" "<<one_count<<endl;
+        zero_count = 0; one_count = 0;
+        //cout<<arr[i]<<endl;
+    }
+    return 0;
+}
