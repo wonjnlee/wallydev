@@ -1,0 +1,31 @@
+// https://www.acmicpc.net/problem/1463
+
+#include <iostream>
+#include <algorithm>
+#include <vector>
+using namespace std;
+
+int arr[100001];
+int makeone(int num);
+
+int main(void) {
+    // insert code here...
+    int num;
+    cin>>num;
+    cout<<makeone(num)<<endl;
+    return 0;
+}
+
+int makeone(int num)
+{
+    arr[1] = 0;
+    if(num > 1) {
+        for(int i=2; i<=num; i++)
+        {
+            arr[i] = arr[i-1] + 1;  //arr[i]-1 = arr[i-1]
+            if(i % 3 == 0)  arr[i] = min(arr[i], arr[i / 3] + 1);
+            if(i % 2 == 0)  arr[i] = min(arr[i], arr[i / 2] + 1);
+        }
+    }
+    return arr[num];
+}
