@@ -1,0 +1,30 @@
+//https://www.acmicpc.net/problem/9095
+
+#include <iostream>
+#include <algorithm>
+#include <vector>
+using namespace std;
+
+int main(void) {
+    // insert code here...
+    int testcase;
+    int num;
+    int result[11];
+    result[0] = 1;
+    result[1] = 2;
+    result[2] = 4;
+    result[3] = 7;
+    for(int i=4; i<11; i++) {
+        result[i] = result[i-3] + result[i-2] + result[i-1];
+    }
+    vector<int> testcase_arr;
+    cin>>testcase;
+    for(int i=0; i<testcase; i++) {
+        cin>>num;
+        testcase_arr.push_back(num);
+    }
+    for(int i=0; i<testcase; i++) {
+        cout<<result[testcase_arr[i]-1]<<endl;
+    }
+    return 0;
+}
