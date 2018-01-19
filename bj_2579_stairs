@@ -1,0 +1,30 @@
+//https://www.acmicpc.net/problem/2579
+
+#include <iostream>
+#include <algorithm>
+#include <vector>
+using namespace std;
+
+int main(void) {
+    // insert code here...
+    int testcase = 0;
+    int num = 0;
+    int count[301];
+    vector <int> stair;
+    
+    cin>>testcase;
+    for(int i=0; i<testcase; i++){
+        cin>>num;
+        stair.push_back(num);
+    }
+    
+    count[0] = stair[0];
+    count[1] = stair[0] + stair[1]; //max(stair[0] + stair[1], stair[1]);
+    count[2] = max(stair[0] + stair[2], stair[1] + stair[2]);
+    
+    for(int i=3; i<testcase; i++) {
+        count[i] = stair[i] + max(count[i-2], count[i-3] + stair[i-1]);
+    }
+    cout<<count[testcase-1]<<endl;
+    return 0;
+}
