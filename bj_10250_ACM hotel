@@ -1,0 +1,29 @@
+// https://www.acmicpc.net/problem/10250
+
+#include <iostream>
+#include <algorithm>
+#include <vector>
+#include <string>
+using namespace std;
+
+int main(void) {
+    int testcase;
+    int story, rooms, number;
+    int result = 0;
+    cin>>testcase;
+    for(int i=0; i<testcase; i++) {
+        cin>>story;
+        cin>>rooms;
+        cin>>number;
+        if(number%story == 0) {
+            result = story * 100;
+            result += (number/story);
+        }
+        else {
+            result = (number%story)*100;
+            result += (number/story)+1;
+        }
+        cout<<result<<endl;
+    }
+    return 0;
+}
