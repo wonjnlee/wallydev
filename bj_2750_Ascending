@@ -1,0 +1,40 @@
+//
+//  main.cpp
+//  Algorithms
+//
+//  Created by Wonjoon Lee on 16/01/2018.
+//  Copyright © 2018 Wonjoon Lee. All rights reserved.
+//
+
+#include <iostream>
+#include <algorithm>
+#include <vector>
+using namespace std;
+
+// For Descending
+bool compare(int a, int b)
+{
+    return a > b;
+}
+
+int main(void) {
+    // insert code here...
+    int count, num;
+    vector <int> arr;
+    
+    cin>>count;
+    for(int i=0; i<count; i++) {
+        cin>>num;
+        arr.push_back(num);
+    }
+    
+    // Ascending
+    sort(arr.begin(), arr.end(), compare);
+    
+    // Descending
+    sort(arr.begin(), arr.end(), compare);
+    
+    for(int i=0; i<count; i++) cout<<arr[i]<<endl;
+    
+    return 0;
+}
