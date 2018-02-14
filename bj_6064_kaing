@@ -1,0 +1,46 @@
+// https://www.acmicpc.net/problem/6064
+
+#include <iostream>
+#include <algorithm>
+#include <vector>
+#include <string>
+using namespace std;
+
+// 1. Older Code -> Time out occured
+int main(void) {
+    int testcase;
+    int M,N,X,Y,x,y,count;
+
+    cin>>testcase;
+    
+    for(int i=0; i<testcase; i++) {
+        cin>>M;
+        cin>>N;
+        cin>>X;
+        cin>>Y;
+        x = 1;
+        y = 1;
+        count = 1;
+        
+        while(1) {
+            if((x == M) && (y == N)) {
+                cout<<-1<<endl;
+                break;
+            }
+            else {
+                if((x == X) && (y == Y)) {
+                    cout<<count<<endl;
+                    break;
+                }
+                else {
+                    if(x < M) x++;
+                    else      x = 1;
+                    if(y < N) y++;
+                    else      y = 1;
+                    count++;
+                }
+            }
+        }
+    }
+    return 0;
+}
