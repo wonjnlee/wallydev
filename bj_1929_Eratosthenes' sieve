@@ -1,0 +1,28 @@
+#include <iostream>
+#include <algorithm>
+#include <vector>
+#include <string>
+using namespace std;
+
+int main(void) {
+    int start, end;
+    int arr[1000001];
+    //int number, index;
+    cin>>start;
+    cin>>end;
+    
+    arr[0] = 1;
+    arr[1] = 1;
+    
+    for(int i=2; (i*i)<=end; i++) {
+        for(int j=0; i*(i+j)<=end; j++) {
+            arr[i*(i+j)] = 1;
+        }
+        //for(int j=2; i*j<1000000; j++) arr[i*j] = 1;
+    }
+    
+    for(int i=start; i<=end; i++) {
+        if(arr[i] == 0) cout<<i<<endl;
+    }
+    return 0;
+}
