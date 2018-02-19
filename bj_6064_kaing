@@ -44,3 +44,59 @@ int main(void) {
     }
     return 0;
 }
+
+// New code but occured time limits also.
+// I added lcm for making code faster but it was not solution for this problem.
+#include <iostream>
+#include <algorithm>
+#include <vector>
+#include <string>
+using namespace std;
+
+long long gcd (long long x, long long y) {
+    if(x%y == 0)    return y;
+    else            return gcd(y, x%y);
+}
+
+long long lcm (long long x, long long y) {
+    return (x * y) / gcd(x,y);
+}
+
+int main(void) {
+    int testcase;
+    int M,N,X,Y;
+    int x,y;
+    int diff;
+    int count;
+    int found;
+    cin>>testcase;
+    
+    for(int i=0; i<testcase; i++) {
+        cin>>M;
+        cin>>N;
+        cin>>X;
+        cin>>Y;
+        count = 0;
+        diff = 0;
+        if(M < N)       diff = N - M;
+        else if(M > N)  diff = M - N;
+        x = X;
+        y = X;
+        found = 0;
+        for(int j = 0; j < lcm(M,N); j++) {
+            if(y == Y) {
+                cout<<count*M+X<<endl;
+                found = 1;
+                break;
+            }
+            else {
+                y += diff;
+                if(y >= N) y -= N;
+                count++;
+            }
+        }
+        if (found == 0) cout<<-1<<endl;
+    }
+    return 0;
+}
+
