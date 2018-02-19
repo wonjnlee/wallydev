@@ -1,0 +1,49 @@
+#include <iostream>
+#include <algorithm>
+#include <vector>
+#include <string>
+using namespace std;
+
+bool compare(int a, int b) {
+    return a > b;
+}
+
+int main(void) {
+    //int arr[100001];
+    vector <int> arr;
+    int count;
+    int newcount;
+    int number;
+    int found;
+    
+    cin>>count;
+    for(int i=0; i<count; i++) {
+        cin>>number;
+        arr.push_back(number);
+    }
+    sort(arr.begin(), arr.end());
+
+    cin>>newcount;
+    for(int i=0; i<newcount; i++) {
+        cin>>number;
+        found = 0;
+        if(number > arr[count-1]/2) {
+            for(int j=count/2; j<count; j++) {
+                if(number == arr[j]){
+                    found = 1;
+                }
+            }
+        }
+        else
+        {
+            for(int j=0; j<count/2; j++)
+            {
+                if(number == arr[j]){
+                    found = 1;
+                }
+            }
+        }
+        cout<<found<<'\n';
+    }
+    return 0;
+}
