@@ -4,10 +4,6 @@
 #include <string>
 using namespace std;
 
-bool compare(int a, int b) {
-    return a > b;
-}
-
 int main(void) {
     //int arr[100001];
     vector <int> arr;
@@ -45,5 +41,110 @@ int main(void) {
         }
         cout<<found<<'\n';
     }
+    return 0;
+}
+
+// Rewrite code
+// Also occured time out
+// using array and two-ways rounding search
+#include <iostream>
+#include <algorithm>
+#include <vector>
+#include <string>
+using namespace std;
+
+int main(void) {
+    int arr[100001];
+    int count;
+    int newcount;
+    int number;
+    int found;
+    
+    cin>>count;
+    for(int i=0; i<count; i++) {
+        cin>>arr[i];
+    }
+    
+    cin>>newcount;
+    for(int i=0; i<newcount; i++) {
+        cin>>number;
+        found = 0;
+        for(int i=0; i<count/2; i++) {
+            if(arr[i] == number) {
+                found = 1;
+                break;
+            }
+        }
+        if(found == 0) {
+            for(int i=count/2; i<count; i++) {
+                if(arr[i] == number) {
+                    found = 1;
+                    break;
+                }
+            }
+        }
+        cout<<found<<'\n';
+    }
+    return 0;
+}
+
+// Solution
+// Using Binary Search for finding specific number
+// Actually I wrote a code to find number individually and print result immediately but It showed me an Time out
+// So I modified code for different sequences like 'first input and last print' then It solved.
+#include <iostream>
+#include <algorithm>
+#include <vector>
+#include <string>
+using namespace std;
+
+int basket[100001];
+int outter[100001];
+
+bool findnumber(int left, int right, int number) {
+    bool    result;
+    int     center = (left + right)/2;
+    
+    if(left > right) return false;
+    else {
+        if(basket[center] > number) {
+            result = findnumber(left, center-1, number);
+        }
+        else if(basket[center] < number) {
+            result = findnumber(center+1, right, number);
+        }
+        else {
+            return true;
+        }
+        return result;
+    }
+}
+
+
+int main(void) {
+    int number, inputcount, findcount;
+    
+    cin>>inputcount;
+    for(int i=0; i<inputcount; i++) {
+        cin>>basket[i];
+    }
+    sort(basket, basket + inputcount);
+    
+    cin>>findcount;
+    for(int i=0; i<findcount; i++) {
+        cin>>outter[i];
+    }
+    
+    for(int i=0; i<findcount; i++) {
+        if(findnumber(0, inputcount-1, outter[i])) cout<<"1\n";
+        else                                    cout<<"0\n";
+    }
+    /* Previous code : Print result immediately while input number -> time out occured
+    for(int i=0; i<findcount; i++) {
+        cin>>number;
+        if(findnumber(0, inputcount-1, number)) cout<<"1\n";
+        else                                    cout<<"0\n";
+    }
+     */
     return 0;
 }
