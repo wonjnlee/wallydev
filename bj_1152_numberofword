@@ -1,0 +1,23 @@
+#include <iostream>
+#include <algorithm>
+#include <vector>
+#include <string>
+#include <cstring>
+using namespace std;
+
+int main(void) {
+    string str;
+    int count = 0;
+    getline(cin,str);
+    
+    if(str.compare("") == 0) cout<<"0"<<endl;
+    else {
+        for(int i=0; i<str.length(); i++) {
+            if(str.at(i) == ' ') count++;
+        }
+        if(str.at(0) == ' ') count = count-1;
+        if(str.at(str.length()-1) == ' ') count = count-1;
+        cout<<count+1<<endl;
+    }
+    return 0;
+}
