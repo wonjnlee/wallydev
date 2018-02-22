@@ -1,0 +1,50 @@
+#include <iostream>
+#include <algorithm>
+#include <vector>
+#include <string>
+#include <cstring>
+#include <list>
+using namespace std;
+
+int main(void) {
+    int count;
+    int number;
+    string command;
+    list<int> stack;
+    
+    cin>>count;
+    for(int i=0; i<count; i++) {
+        cin>>command;
+        if(command.compare("push") == 0) {
+            cin>>number;
+            stack.push_back(number);
+        }
+        else if(command.compare("pop") == 0) {
+            if(stack.size() > 0) {
+                cout<<stack.back()<<endl;
+                stack.pop_back();
+            }
+            else {
+                cout<<"-1"<<endl;
+            }
+        }
+        else if(command.compare("size") == 0) {
+            cout<<stack.size()<<endl;
+        }
+        else if(command.compare("empty") == 0) {
+            if(stack.size() == 0)   cout<<"1"<<endl;
+            else                    cout<<"0"<<endl;
+        }
+        else if(command.compare("top") == 0) {
+            if(stack.size() > 0) {
+                cout<<stack.back()<<endl;
+            }
+            else {
+                cout<<"-1"<<endl;
+            }
+        }
+    }
+    return 0;
+}
+
+
