@@ -1,0 +1,69 @@
+#include <iostream>
+#include <algorithm>
+#include <vector>
+#include <string>
+#include <cstring>
+#include <list>
+using namespace std;
+
+/*
+ 1. Adjacent Matrix
+ */
+
+int vertex_number;
+
+// 1 start
+int matrix[1001][1001];
+int check_DFS[10001];
+int check_BFS[10001];
+int queue_BFS[1001];
+// 1 end
+
+void DFS(int vertex) {
+    check_DFS[vertex] = 1;
+    cout<<vertex<<" ";
+    for(int i=1; i<=vertex_number; i++) {
+        if(!check_DFS[i] && matrix[vertex][i]) {
+            DFS(i);
+        }
+    }
+}
+
+void BFS(int vertex) {
+    int front_queue = 0;
+    int rear_queue = 0;
+    queue_BFS[rear_queue++] = vertex;
+    check_BFS[vertex] = 1;
+    cout<<vertex<<" ";
+    while(front_queue < rear_queue) {
+        for(int i=1; i<=vertex_number; i++) {
+            if(!check_BFS[i] && matrix[queue_BFS[front_queue]][i]) {
+                check_BFS[i] = 1;
+                cout<<i<<" ";
+                queue_BFS[rear_queue++] = i;
+            }
+        }
+        front_queue++;
+    }
+}
+
+int main(void) {
+    // variables
+    int start;  // start vertex;
+    int front, end; // movement of line through vertexes
+    int line_number;    // number of lines
+    
+    // 1 start
+    cin>>vertex_number>>line_number>>start;
+    for(int i=0; i<line_number; i++) {
+        cin>>front>>end;
+        matrix[front][end] = matrix[end][front] = 1;
+    }
+    DFS(start);
+    cout<<endl;
+    BFS(start);
+    cout<<endl;
+    // 1 end
+    return 0;
+}
+
