@@ -1,0 +1,56 @@
+#include <iostream>
+#include <algorithm>
+#include <vector>
+#include <string>
+#include <cstring>
+#include <list>
+using namespace std;
+
+int map[100][100];
+int x_arr[10000], y_arr[10000], cnt_arr[10000];
+int cnt, X, Y;
+
+void enqueue(int x_val, int y_val, int cnt_val) {
+    x_arr[cnt] = x_val;
+    y_arr[cnt] = y_val;
+    cnt_arr[cnt] = cnt_val;
+    map[y_val][x_val] = 0;
+    cnt++;
+}
+
+void BFS(int x, int y) {
+    int index = 0;
+    enqueue(x, y, 1);
+    while((index < cnt) && ((x_arr[index] != X - 1) || (y_arr[index] != Y - 1))) {
+        //map[y_arr[index]][x_arr[index]] = 0;
+        if((y_arr[index] > 0) && map[y_arr[index] - 1][x_arr[index]]) {
+            enqueue(x_arr[index], y_arr[index] - 1, cnt_arr[index] + 1);
+        }
+        if((y_arr[index] < Y - 1) && map[y_arr[index] + 1][x_arr[index]]) {
+            enqueue(x_arr[index], y_arr[index] + 1, cnt_arr[index] + 1);
+        }
+        if((x_arr[index] > 0) && map[y_arr[index]][x_arr[index] - 1]) {
+            enqueue(x_arr[index] - 1, y_arr[index], cnt_arr[index] + 1);
+        }
+        if((x_arr[index] < X - 1) && map[y_arr[index]][x_arr[index] + 1]) {
+            enqueue(x_arr[index] + 1, y_arr[index], cnt_arr[index] + 1);
+        }
+        index++;
+    }
+    if(index < cnt) cout<<cnt_arr[index]<<"\n";
+}
+
+
+
+int main(void) {
+    string input;
+    cin>>Y>>X;
+    for(int i=0; i<Y; i++) {
+        cin>>input;
+        for(int j=0; j<X; j++) {
+            map[i][j] = input.at(j) - 48;
+        }
+    }
+    BFS(0, 0);
+    return 0;
+}
