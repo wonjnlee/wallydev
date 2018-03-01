@@ -1,0 +1,52 @@
+#include <iostream>
+#include <algorithm>
+#include <vector>
+#include <string>
+#include <cstring>
+#include <list>
+using namespace std;
+
+int sticker[2][100001];
+int dp[2][100001];
+
+void init() {
+    for(int i=0; i<2; i++) {
+        for(int j=0; j<100001; j++) {
+            dp[i][j] = sticker[i][j] = 0;
+        }
+    }
+}
+
+int main(void)
+{
+    int problems;
+    int values;
+    int number;
+    int result, maximum;
+    
+    cin>>problems;
+    for(int p = 0; p<problems; p++) {
+        cin>>values;
+        if(p > 0) init();
+        
+        for(int line = 0; line<2; line++) {
+            for(int v = 0; v<values; v++) {
+                cin>>number;
+                sticker[line][v + 1] = number;
+            }
+        }
+        
+        maximum = 0;
+        dp[0][0] = dp[1][0] = 0;
+        dp[0][1] = sticker[0][1];
+        dp[1][1] = sticker[1][1];
+        
+        for(int i = 2; i<=values; i++) {
+            dp[0][i]    = max(dp[1][i-1], dp[1][i-2]) + sticker[0][i];
+            dp[1][i]    = max(dp[0][i-1], dp[0][i-2]) + sticker[1][i];
+            result      = max(dp[0][i], dp[1][i]);
+        }
+        cout<<max(dp[0][values], dp[1][values])<<endl;
+    }
+    return 0;
+}
