@@ -1,0 +1,26 @@
+#include <iostream>
+#include <algorithm>
+#include <vector>
+#include <string>
+#include <cstring>
+#include <list>
+using namespace std;
+
+#define MAX 1000
+
+long long int dp[MAX + 1] = {0,};
+
+int main(void)
+{
+    int value;
+    cin>>value;
+    dp[0] = 0;
+    dp[1] = 1;
+    dp[2] = 2;
+    
+    for(int i=3; i<=value; i++) {
+        dp[i] = (dp[i - 2] + dp[i - 1]) % 10007;
+    }
+    cout<<dp[value]<<endl;
+    return 0;
+}
