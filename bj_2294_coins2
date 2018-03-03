@@ -6,48 +6,35 @@
 #include <list>
 using namespace std;
 
-#define N 101       // 동전의 가짓수
+#define KIND 100       // 동전의 가짓수
 #define VALUE 10000 // 동전들로 만들 수 있는 최대 가치
 
-int values[N];      // 서로 다른 가치를 갖는 동전들을 담는 배열 -> 각 동전의 가치를 표시 [1][5][12]
-int dp[VALUE];   // DP
+int values[KIND + 1] = {0,};      // 서로 다른 가치를 갖는 동전들을 담는 배열 -> 각 동전의 가치를 표시 [1][5][12]
+int dp[VALUE + 1] = {0,};   // DP
+
 
 int main(void)
 {
-    int penny;          // 동전의 갯수
-    int total_value;    // 만들고자 하는 가치
-    int v;              // 각 동전의 가치들을 입력받기 위한 변수
-    int minimum = VALUE;
+    int penny_kind;
+    int total_value;
     
-    cin>>penny>>total_value;
-    for(int i=0; i<penny; i++) {
-        cin>>v;
-        values[i] = v;
-        dp[v] = 1;
-        if(minimum > v) minimum = v;
+    cin>>penny_kind>>total_value;
+    for(int penny = 0; penny < penny_kind; penny++) {
+        cin>>values[penny];
     }
     
-    if(minimum > total_value) cout<<"-1"<<endl;
-    else
-    {
-        for(int i = minimum + 1; i<=total_value; i++) {
-            dp[i] = i;
-            for(int j=0; j<penny; j++) {
-                if(values[j] <= i) {
-                    if(i % values[j])
-                    {   // 나누어 떨어지지 않으면,
-                        dp[i] = min(dp[i], dp[i - values[j] + dp[values[j]]]);
-                    }
-                    else
-                    {   // 나누어 떨어지면,
-                        dp[i] = min(dp[i], dp[i - values[j]] + 1);
-                    }
-                }
+    dp[0] = 0;
+    for(int i=1; i<=total_value; i++) {
+        dp[i] = VALUE;
+        for(int j=0; j<penny_kind; j++) {
+            if(values[j] <= i) {
+                dp[i] = min(dp[i], dp[i - values[j]] + 1);
             }
-            //cout<<dp[i]<<endl;
         }
     }
-    cout<<dp[total_value]<<endl;
+    if(dp[total_value] < VALUE) cout<<dp[total_value]<<endl;
+    else                        cout<<"-1"<<endl;
+    
     return 0;
 }
 
