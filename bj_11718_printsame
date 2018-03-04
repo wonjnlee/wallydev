@@ -1,0 +1,20 @@
+#include <iostream>
+#include <algorithm>
+#include <vector>
+#include <string>
+#include <cstring>
+#include <list>
+using namespace std;
+
+int main(void)
+{
+    char a;
+    a = getchar();
+    
+    while(a != EOF) {
+        putchar(a);
+        a = getchar();
+    }
+    return 0;
+}
+
