@@ -1,0 +1,18 @@
+#include <iostream>
+#include <algorithm>
+#include <vector>
+#include <string>
+#include <cstring>
+#include <list>
+using namespace std;
+
+int main(void)
+{
+    long long int a, b, v, result, cal;
+    cin>>a>>b>>v;
+    cal = (v - b) % (a - b);
+    result = (v - b) / (a - b);
+    if(cal) result += 1;
+    cout<<result<<endl;
+    return 0;
+}
