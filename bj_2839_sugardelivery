@@ -1,0 +1,36 @@
+#include <iostream>
+#include <algorithm>
+#include <vector>
+#include <string>
+#include <cstring>
+#include <list>
+using namespace std;
+
+#define MAX 5000
+
+int sugarkg[MAX + 1];
+int dp[MAX + 1];
+int basket[2] = {3, 5};
+
+int main(void)
+{
+    int total;
+    cin>>total;
+    
+    dp[0] = 0;
+    dp[1] = MAX;
+    dp[2] = MAX;
+    
+    // calculation
+    for(int i=3; i<=total; i++) {
+        dp[i] = MAX;
+        for(int j=0; j<2; j++) {
+            if(i >= basket[j]) {
+                dp[i] = min(dp[i], dp[i - basket[j]] + 1);
+            }
+        }
+    }
+    if(dp[total] >= MAX)    cout<<"-1"<<endl;
+    else                    cout<<dp[total]<<endl;
+    return 0;
+}
