@@ -1,0 +1,36 @@
+#include <iostream>
+#include <algorithm>
+#include <vector>
+#include <string>
+#include <cstring>
+#include <list>
+using namespace std;
+
+#define MAX 1000
+
+int arr[MAX + 1];
+
+int main(void)
+{
+    int maxnumber, count, pivot;
+    cin>>maxnumber>>count;
+    
+    arr[0] = 1;
+    arr[1] = 1;
+    pivot = 0;
+    for(int i = 2; i<MAX; i++) {
+        if(arr[i] == 0) {
+            for(int j = 1; (i * j) <= maxnumber; j++) {
+                if(arr[i*j] == 0) {
+                    arr[i*j] = 1;
+                    pivot += 1;
+                    if(pivot == count) {
+                        cout<<i*j<<endl;
+                        return 0;
+                    }
+                }
+            }
+        }
+    }
+    return 0;
+}
