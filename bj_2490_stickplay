@@ -1,0 +1,29 @@
+#include <iostream>
+#include <algorithm>
+#include <vector>
+#include <string>
+#include <cstring>
+#include <list>
+using namespace std;
+
+int stick[4];
+
+int main(void)
+{
+    int count;
+    char result;
+    for(int i=0; i<3; i++) {
+        count = 0;
+        for(int j=0; j<4; j++)  {
+            cin>>stick[j];
+            if(stick[j]) count++;
+        }
+        if(count == 0)  result = 'D';
+        else if(count == 1) result = 'C';
+        else if(count == 2) result = 'B';
+        else if(count == 3) result = 'A';
+        else                result = 'E';
+        cout<<result<<endl;
+    }
+    return 0;
+}
