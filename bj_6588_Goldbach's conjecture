@@ -1,0 +1,43 @@
+#include <iostream>
+#include <algorithm>
+#include <vector>
+#include <string>
+#include <cstring>
+#include <list>
+using namespace std;
+
+#define MAX 1000000
+
+int primarys[MAX + 1];
+
+int main(void)
+{
+    int input   = 0;
+    int result  = 0;
+    int check   = 0;
+    
+    primarys[0] = primarys[1] = 1;
+    
+    for(int i=2; i*i<=MAX; i++) {
+        for(int j=0; (i*(i+j))<=MAX; j++) {
+            primarys[(i*i)+(i*j)] = 1;
+        }
+    }
+    
+    while(true) {
+        scanf("%d", &input);
+        if(input == 0) break;
+        else {
+            check = 0;
+            for(int i=3; i<=(input/2); i++) {
+                if((!primarys[i]) && (!primarys[input - i])) {
+                    printf("%d = %d + %d\n", input, i, input - i);
+                    check = 1;
+                    break;
+                }
+            }
+            if(!check) printf("Goldbach's conjecture is wrong.\n");
+        }
+    }
+    return 0;
+}
