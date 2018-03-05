@@ -1,0 +1,30 @@
+#include <iostream>
+#include <algorithm>
+#include <vector>
+#include <string>
+#include <cstring>
+#include <list>
+using namespace std;
+
+int answer[10];
+int main(void)
+{
+    int number;
+    int total = 1;
+    int index = 10;
+    for(int i=0; i<3; i++) {
+        cin>>number;
+        total *= number;
+    }
+    while((total / index) != 0) {
+        answer[(total % index) / (index / 10)] += 1;
+        //cout<<index<<" "<<(total % index) / (index / 10)<<endl;
+        index *= 10;
+    }
+    answer[(total % index) / (index / 10)] += 1;
+    
+    for(int i=0; i<10; i++){
+        cout<<answer[i]<<endl;
+    }
+    return 0;
+}
