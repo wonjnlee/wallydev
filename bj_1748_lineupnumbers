@@ -7,6 +7,26 @@
 #include <cmath>
 using namespace std;
 
+// Solution
+int main(void)
+{
+    long long int value, temp, index;
+    long long int result = 0;
+    cin>>value;
+    temp = index = 1;
+    for(int i=1; i<=value; i++) {
+        if(i == temp * 10) {
+            temp *= 10;
+            index += 1;
+        }
+        result += index;
+    }
+    cout<<result<<endl;
+    return 0;
+}
+
+
+/* Error occured
 int numbers[100000001];
 
 int main(void)
@@ -31,4 +51,5 @@ int main(void)
     printf("%lld\n", result);
     return 0;
 }
+*/
 
