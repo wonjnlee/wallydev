@@ -1,0 +1,89 @@
+#include <iostream>
+#include <algorithm>
+#include <vector>
+#include <string>
+#include <cstring>
+#include <list>
+#include <cmath>
+using namespace std;
+
+int N, M, x, y, temp;
+int _up = 0; int _down = 0; int _left = 0; int _right = 0; int _front = 0; int _back = 0;
+void east(); void west(); void south(); void north(); void check_print();
+int map[20][20];
+int command[1000];
+ 
+int main(void)
+{
+    int K;
+    cin>>N>>M>>x>>y>>K;
+    // Build Map
+    for(int i=0; i<N; i++) {
+        for(int j=0; j<M; j++) {
+            cin>>map[i][j];
+        }
+    }
+    
+    for(int i=0; i<K; i++) cin>>command[i];
+    
+    // Command operations
+    for(int i=0; i<K; i++) {
+        if((command[i] == 1) && (y < M - 1))        east();
+        else if((command[i] == 2) && (y > 0))       west();
+        else if((command[i] == 3) && (x > 0))       north();
+        else if((command[i] == 4) && (x < N - 1))   south();
+    }
+    return 0;
+}
+
+void check_print() {
+    if(map[x][y]) {
+        _down = map[x][y];
+        map[x][y] = 0;
+    }
+    else {
+        map[x][y] = _down;
+    }
+    cout<<_up<<endl;
+
+}
+
+void east() {
+    y       += 1;
+    temp    = _left;
+    _left   = _up;
+    _up     = _right;
+    _right  = _down;
+    _down   = temp;
+    check_print();
+}
+
+void west() {
+    y       -= 1;
+    temp    = _right;
+    _right  = _up;
+    _up     = _left;
+    _left   = _down;
+    _down   = temp;
+    check_print();
+}
+
+void south() {
+    x       += 1;
+    temp    = _front;
+    _front  = _up;
+    _up     = _back;
+    _back   = _down;
+    _down   = temp;
+    check_print();
+}
+
+void north() {
+    x       -= 1;
+    temp    = _back;
+    _back   = _up;
+    _up     = _front;
+    _front  = _down;
+    _down   = temp;
+    check_print();
+}
