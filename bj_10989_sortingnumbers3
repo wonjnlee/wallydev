@@ -1,0 +1,32 @@
+#include <iostream>
+#include <algorithm>
+#include <vector>
+#include <string>
+#include <cstring>
+#include <list>
+#include <cmath>
+using namespace std;
+
+int main(void)
+{
+    int count, number;
+    int maxnumber = 0;
+    int numbers[10001];
+    cin>>count;
+    
+    for(int i=0; i<10001; i++) numbers[i] = 0;
+    for(int i=0; i<count; i++) {
+        cin>>number;
+        numbers[number] += 1;
+        if(maxnumber < number) maxnumber = number;
+    }
+    
+    for(int i=1; i<=maxnumber; i++) {
+        if(numbers[i]) {
+            for(int j=0; j<numbers[i]; j++) {
+                printf("%d\n", i);
+            }
+        }
+    }
+    return 0;
+}
