@@ -1,0 +1,58 @@
+#include <iostream>
+#include <algorithm>
+#include <vector>
+#include <string>
+#include <cstring>
+#include <list>
+#include <cmath>
+using namespace std;
+
+int getsum(int value, int index)
+{
+    int result = 0;
+    if(index) {
+        return result + getsum(value % index, index - 1);
+    }
+    else {
+        return result + value;
+    }
+}
+
+int main(void)
+{
+    int value;
+    int ten = 10;
+    int index = 0;
+    int start;
+    int result, temp, power, tempindex;
+    bool flag = false;
+    cin>>value;
+    
+    while(value/ten) { // 1000 -> 4
+        ten *= 10;
+        index++;
+    }
+    
+    start = value - 9*(index+1);
+    for(int i=start; i<value; i++) {
+        tempindex = index;
+        result = 0;
+        temp = i;
+        while(tempindex) {
+            power = pow(10, tempindex);
+            result += temp / pow(10, tempindex);
+            temp = temp % power;
+            tempindex--;
+        }
+        result += temp;
+        if((i+result) == value) {
+            printf("%d\n", i);
+            flag = true;
+            break;
+        }
+    }
+    if(flag == false) printf("0\n");
+    return 0;
+}
+
+
