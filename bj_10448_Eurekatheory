@@ -1,0 +1,51 @@
+#include <iostream>
+#include <algorithm>
+#include <vector>
+#include <string>
+#include <cstring>
+#include <list>
+#include <cmath>
+using namespace std;
+
+#define MAX 1000
+
+int main(void)
+{
+    int count;
+    int value = 0;
+    vector <int> gause;
+    bool flag = false;
+    cin>>count;
+
+    for(int i=1; (i*(i+1)/2) <= MAX; i++)   gause.push_back(i*(i+1)/2);
+
+    for(int i=0; i<count; i++)  {
+        scanf("%d", &value);
+        flag = false;
+        for(int j=0; j<gause.size(); j++) {
+            if(flag == false) {
+                for(int k=0; k<gause.size(); k++) {
+                    if(flag == false) {
+                        for(int l=0; l<gause.size(); l++) {
+                            if(gause.at(j) + gause.at(k) + gause.at(l) == value) {
+                                flag = true;
+                                break;
+                            }
+                        }
+                    }
+                    else {
+                        break;
+                    }
+                }
+            }
+            else {
+                printf("1\n");
+                break;
+            }
+        }
+        if(flag == false) printf("0\n");
+    }
+    return 0;
+}
+
+
