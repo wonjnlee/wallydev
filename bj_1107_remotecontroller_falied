@@ -1,0 +1,75 @@
+#include <iostream>
+#include <algorithm>
+#include <vector>
+#include <string>
+#include <cstring>
+#include <list>
+#include <cmath>
+using namespace std;
+
+int     channel_length;
+int     button[10];
+
+// channel이 정상적인지 확인하는 함수
+bool check_channel(int channel) {
+    int cl = channel_length;
+    int index = pow(10, cl);
+    int value;
+    
+    while(cl > 0) {
+        value = (channel / index) % 10;
+        if(button[value] == 1) return false;
+        cl -= 1;
+        index = pow(10, cl);
+    }
+    
+    index = pow(10, cl);
+    value = (channel / index) % 10;
+    if(button[value] == 1)  return false;
+    return true;
+}
+
+int main(void)
+{
+    int channel, brokencount, brokennumber;
+    int ten = 10;
+    bool found = false;
+    scanf("%d", &channel);
+    scanf("%d", &brokencount);
+    for(int i=0; i<brokencount; i++) {
+        scanf("%d", &brokennumber);
+        button[brokennumber] = 1;
+    }
+    
+    while(channel/ten) {
+        ten *= 10;
+        channel_length++;
+    }
+    
+    int result = 500000;
+    for(int i=channel; i>=0; i--) {
+        if(check_channel(i) == true) {
+            result = min(result, channel - i);
+            found = true;
+            break;
+        }
+    }
+    
+    for(int i=channel; ; i++) {
+        if(check_channel(i) == true) {
+            result = min(result, i - channel);
+            found = true;
+            break;
+        }
+    }
+    
+    if(found == false) result = 0;
+    else {
+        result += channel_length + 1;
+        if(channel > 100)   result = min(result, channel - 100);
+        else                result = min(result, 100 - channel);
+    }
+    //printf("%d\n", result);
+    cout<<result<<endl;
+}
+
