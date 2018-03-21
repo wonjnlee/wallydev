@@ -1,0 +1,54 @@
+#include <iostream>
+#include <algorithm>
+#include <vector>
+#include <string>
+#include <cstring>
+#include <list>
+#include <cmath>
+using namespace std;
+
+long long int map[10][10];
+vector <int> nodes;
+
+int main(void)
+{
+    int count, tempcount;;
+    int total = 1;
+    long long int weight;
+    long long int cal;
+    bool noway = false;
+    cin>>count;
+    for(int i=0; i<count; i++) {
+        for(int j=0; j<count; j++) {
+            cin>>map[i][j];
+        }
+        nodes.push_back(i);
+    }
+    tempcount = count;
+    while(tempcount > 0) {
+        total *= tempcount;
+        tempcount--;
+    }
+    
+    weight = 1000000 * count;
+    for(int i=0; i<total; i++) {
+        cal = 0;
+        noway = false;
+        for(int j=0; j<count; j++) {
+            if(j == count-1) {
+                if(map[nodes[j]][nodes[0]])     cal += map[nodes[j]][nodes[0]];
+                else                            noway = true;
+            }
+            else
+            {
+                if(map[nodes[j]][nodes[j+1]])   cal += map[nodes[j]][nodes[j+1]];
+                else                            noway = true;
+            }
+        }
+        if(noway == false)  weight = min(weight, cal);
+        if(next_permutation(nodes.begin(), nodes.end())) {}
+    }
+    cout<<weight<<endl;
+    return 0;
+}
+
