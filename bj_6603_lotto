@@ -1,0 +1,48 @@
+#include <iostream>
+#include <algorithm>
+#include <vector>
+#include <string>
+#include <cstring>
+#include <list>
+#include <cmath>
+using namespace std;
+
+int totalcount;
+int visits[15];
+int vertex[15];
+
+
+void visiting(int current, int count) {
+    if((current == totalcount) && (count == 6)) {
+        for(int i=0; i<totalcount; i++) {
+            if(visits[i])   cout<<vertex[i]<<" ";
+        }
+        cout<<endl;
+    }
+    else {
+        if(current == totalcount) return;
+        else {
+            visits[current] = 1;
+            visiting(current + 1, count + 1);
+            visits[current] = 0;
+            visiting(current + 1, count);
+        }
+    }
+}
+
+int main(void)
+{
+    while(1) {
+        cin>>totalcount;
+        if(totalcount == 0) break;
+        else {
+            for(int i=0; i<15; i++) visits[i] = 0;
+            //memset(visits, 0, sizeof(int));
+            for(int i=0; i<totalcount; i++) cin>>vertex[i];
+            visiting(0,0);
+        }
+        cout<<endl;
+    }
+    return 0;
+}
+
