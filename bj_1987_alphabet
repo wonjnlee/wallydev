@@ -1,0 +1,41 @@
+#include <iostream>
+#include <algorithm>
+#include <vector>
+#include <string>
+#include <cstring>
+#include <list>
+#include <cmath>
+using namespace std;
+
+int R, C;
+char map[21][21];
+bool visit[21][21];
+bool alphabet[26];
+int maximumcount;
+
+void DFS(int r, int c, int result) {
+    maximumcount = max(maximumcount, result);
+    visit[r][c] = true;
+    alphabet[map[r][c] - 'A'] = true;
+    if((r > 0) && !visit[r-1][c] && !alphabet[map[r-1][c]-'A'])       DFS(r-1, c, result+1);
+    if((r < R-1) && !visit[r+1][c] && !alphabet[map[r+1][c]-'A'])     DFS(r+1, c, result+1);
+    if((c > 0) && !visit[r][c-1] && !alphabet[map[r][c-1]-'A'])       DFS(r, c-1, result+1);
+    if((c < C-1) && !visit[r][c+1] && !alphabet[map[r][c+1]-'A'])     DFS(r, c+1, result+1);
+    visit[r][c] = false;
+    alphabet[map[r][c]-'A'] = false;
+}
+
+int main(void)
+{
+    string str;
+    cin>>R>>C;
+    for(int i=0; i<R; i++) {
+        cin>>str;
+        for(int j=0; j<C; j++) {
+            map[i][j] = str[j];
+        }
+    }
+    DFS(0,0,1);
+    cout<<maximumcount<<endl;
+    return 0;
+}
