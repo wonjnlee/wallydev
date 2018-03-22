@@ -1,0 +1,31 @@
+#include <iostream>
+#include <algorithm>
+#include <vector>
+#include <string>
+#include <cstring>
+#include <list>
+#include <cmath>
+using namespace std;
+
+int N, S;
+int cnt, sum;
+long long int numbers[21];
+int visit[21];
+
+void DFS(int v) {
+    if(v == N) return;
+    if((sum + numbers[v]) == S) cnt++;
+    DFS(v + 1); // not add
+    sum += numbers[v];
+    DFS(v + 1);
+    sum -= numbers[v];
+}
+
+int main(void)
+{
+    cin>>N>>sum;
+    for(int i=0; i<N; i++) cin>>numbers[i];
+    DFS(0);
+    cout<<cnt<<endl;
+    return 0;
+}
