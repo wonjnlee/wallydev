@@ -10,7 +10,6 @@ using namespace std;
 int L, C;
 char alphabet[16];
 
-
 void DFS(int idx, int cnt, int mo, int ja, string str) {
     if(cnt == L) {
         if ((mo >= 1) && (ja >= 2))
