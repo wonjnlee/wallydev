@@ -7,6 +7,34 @@
 #include <cmath>
 using namespace std;
 
+/* New code : runtime is 300MS */
+int R, C;
+int visit[30];
+char words[21][21];
+int result;
+
+void DFS(int r, int c, int cnt) {
+    visit[words[r][c] - 65] = 1;
+    if((r > 0) && !visit[words[r-1][c] - 65])       DFS(r-1, c, cnt+1);
+    if((r < R - 1) && !visit[words[r+1][c] - 65])   DFS(r+1, c, cnt+1);
+    if((c > 0) && !visit[words[r][c-1] - 65])       DFS(r, c-1, cnt+1);
+    if((c < C - 1) && !visit[words[r][c+1] - 65])   DFS(r, c+1, cnt+1);
+    result = max(result, cnt);
+    visit[words[r][c] - 65] = 0;
+}
+
+int main(void)
+{
+    cin>>R>>C;
+    for(int i=0; i<R; i++) {
+        for(int j=0; j<C; j++)  cin>>words[i][j];
+    }
+    DFS(0,0,1);
+    cout<<result<<endl;
+    return 0;
+}
+
+/* Previous code : runtime was 360MS */
 int R, C;
 char map[21][21];
 bool visit[21][21];
