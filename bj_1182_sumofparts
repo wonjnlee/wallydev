@@ -21,11 +21,20 @@ void DFS(int v) {
     sum -= numbers[v];
 }
 
+/* New function using one more parameter to save sum of values */
+void DFS(int index, int sum) {
+    if(index == N)                  return;
+    if(sum + numbers[index] == S)    cnt++;
+    DFS(index + 1, sum + numbers[index]);
+    DFS(index + 1, sum);
+}
+
 int main(void)
 {
     cin>>N>>sum;
     for(int i=0; i<N; i++) cin>>numbers[i];
     DFS(0);
+    // DFS(0,0);
     cout<<cnt<<endl;
     return 0;
 }
