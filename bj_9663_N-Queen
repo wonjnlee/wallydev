@@ -1,0 +1,33 @@
+#include <iostream>
+#include <algorithm>
+#include <vector>
+#include <string>
+#include <cstring>
+#include <list>
+#include <cmath>
+using namespace std;
+
+bool moveup[30];
+bool movedown[30];
+bool thisrow[15];
+int N;
+int cnt;
+
+void DFS(int row) {
+    if(row >= N)    cnt++;
+    for(int i=0; i<N; i++) {
+        if((!thisrow[i]) && (!moveup[row + i] && !movedown[N - 1 + (row - i)])) {
+            thisrow[i] = moveup[row + i] = movedown[N - 1 + (row - i)] = true;
+            DFS(row + 1);
+            thisrow[i] = moveup[row + i] = movedown[N - 1 + (row - i)] = false;
+        }
+    }
+}
+
+int main(void)
+{
+    cin>>N;
+    DFS(0);
+    cout<<cnt<<endl;
+    return 0;
+}
