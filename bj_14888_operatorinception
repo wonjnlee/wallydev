@@ -1,0 +1,52 @@
+#include <iostream>
+#include <algorithm>
+#include <vector>
+#include <string>
+#include <cstring>
+#include <list>
+#include <cmath>
+using namespace std;
+
+long long int max_val = -1000000000;
+long long int min_val = 1000000000;
+int N;
+int numbers[12];
+int _add, _min, _mul, _div;
+
+void DFS(int index, long long int temp_result) {
+    if(index == N) {
+        max_val = max(max_val, temp_result);
+        min_val = min(min_val, temp_result);
+        return;
+    }
+    if(_add) {
+        _add -= 1;
+        DFS(index + 1, temp_result + numbers[index]);
+        _add += 1;
+    }
+    if(_min) {
+        _min -= 1;
+        DFS(index + 1, temp_result - numbers[index]);
+        _min += 1;
+    }
+    if(_mul) {
+        _mul -= 1;
+        DFS(index + 1, temp_result * numbers[index]);
+        _mul += 1;
+    }
+    if(_div) {
+        _div -= 1;
+        DFS(index + 1, temp_result / numbers[index]);
+        _div += 1;
+    }
+}
+
+int main(void)
+{
+    cin>>N;
+    for(int i=0; i<N; i++) cin>>numbers[i];
+    cin>>_add>>_min>>_mul>>_div;
+    DFS(1, numbers[0]);
+    cout<<max_val<<endl<<min_val<<endl;
+    return 0;
+}
