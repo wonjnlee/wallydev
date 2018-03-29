@@ -1,0 +1,58 @@
+#include <iostream>
+#include <algorithm>
+#include <vector>
+#include <string>
+#include <cstring>
+#include <list>
+#include <cmath>
+using namespace std;
+
+int N;
+
+int map[21][21];
+int team[21];
+
+long long int result = 100000000000;
+
+long long int cal() {
+    long long int team1_val = 0;
+    long long int team2_val = 0;
+    vector <int> team1;
+    vector <int> team2;
+    for(int i=0; i<N; i++) {
+        if(team[i] == 1)    team1.push_back(i);
+        else                team2.push_back(i);
+    }
+    for(int i=0; i<team1.size()-1; i++) {
+        for(int j=1; j<team1.size(); j++) {
+            team1_val += (map[team1[i]][team1[j]] + map[team1[j]][team1[i]]);
+            team2_val += (map[team2[i]][team2[j]] + map[team2[j]][team2[i]]);
+        }
+    }
+    return abs(team2_val - team1_val);
+    //if(team1_val > team2_val)   return team1_val - team2_val;
+    //else                        return team2_val - team1_val;
+}
+
+void DFS(int index, int cnt) {
+    if(index >= N) return;
+    if(cnt > N/2) {
+        result = min(result, cal());
+        return;
+    }
+    DFS(index + 1, cnt);
+    team[index] = 1;
+    DFS(index + 1, cnt + 1);
+    team[index] = 0;
+}
+
+int main(void)
+{
+    cin>>N;
+    for(int i=0; i<N; i++) {
+        for(int j=0; j<N; j++) cin>>map[i][j];
+    }
+    DFS(0,0);
+    cout<<result<<endl;
+    return 0;
+}
