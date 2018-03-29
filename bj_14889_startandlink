@@ -8,10 +8,8 @@
 using namespace std;
 
 int N;
-
 int map[21][21];
 int team[21];
-
 long long int result = 100000000000;
 
 long long int cal() {
