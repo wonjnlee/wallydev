@@ -1,0 +1,38 @@
+#include <iostream>
+#include <algorithm>
+#include <vector>
+#include <string>
+#include <cstring>
+#include <list>
+#include <cmath>
+using namespace std;
+
+/* Using DFS backtraking but occured timeout */
+int N, K;
+int result = 100000;
+
+void DFS(int subin, int cnt) {
+    if(cnt > (K - N))   return;
+    if(subin > 100000)  return;
+    if(subin == K)  {
+        result = min(result, cnt);
+        return;
+    }
+    
+    if(subin < K)                   DFS(subin + 1, cnt + 1);
+    if((subin > 0) || (subin > K))  DFS(subin - 1, cnt + 1);
+    if((subin != 0) || (subin < K)) DFS(subin * 2, cnt + 1);
+}
+
+
+
+
+
+int main(void)
+{
+    cin>>N>>K;
+    /* Backtracking */
+    DFS(N, 0);
+    cout<<result<<endl;
+    return 0;
+}
