@@ -7,32 +7,37 @@
 #include <cmath>
 using namespace std;
 
-/* Using DFS backtraking but occured timeout */
+# define MAX 100000
 int N, K;
-int result = 100000;
-
-void DFS(int subin, int cnt) {
-    if(cnt > (K - N))   return;
-    if(subin > 100000)  return;
-    if(subin == K)  {
-        result = min(result, cnt);
-        return;
-    }
-    
-    if(subin < K)                   DFS(subin + 1, cnt + 1);
-    if((subin > 0) || (subin > K))  DFS(subin - 1, cnt + 1);
-    if((subin != 0) || (subin < K)) DFS(subin * 2, cnt + 1);
-}
-
-
-
-
+int road[100001];
 
 int main(void)
 {
     cin>>N>>K;
-    /* Backtracking */
-    DFS(N, 0);
-    cout<<result<<endl;
+    
+    for(int i = 0; i <= K; i++) {
+        if(i <= N) {
+            road[i] = N - i;
+            if((i > 0) && ((N - i) * 2) <= MAX) {
+                road[(N - i) * 2] = (N - i) + 1;
+            }
+        }
+        else
+        {
+            if(!road[i]) {
+                road[i] = i - N;
+            }
+            if(i > 0) {
+                road[i] = min(road[i], road[i - 1] + 1);
+            }
+            if((i % 2) == 0) {
+                road[i] = min(road[i], road[i / 2] + 1);
+            }
+            if(((i + 1) <= MAX) && ((i + 1) % 2 == 0)) {
+                road[i] = min(road[i], road[(i + 1)/2] + 2);
+            }
+        }
+    }
+    cout<<road[K]<<endl;
     return 0;
 }
