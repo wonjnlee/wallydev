@@ -1,0 +1,77 @@
+#include <iostream>
+#include <cmath>
+#include <algorithm>
+#include <vector>
+#include <cstring>
+#include <cstdlib>
+
+using namespace std;
+
+int map[51][51];
+int visit[51][51];	
+int W, H;
+int cnt;
+
+void DFS(int h, int w) {
+	visit[h][w] = 1;
+
+	if ((h > 0) && map[h - 1][w] && !visit[h - 1][w]) {
+		DFS(h - 1, w);
+	}
+	if ((h < H - 1) && map[h + 1][w] && !visit[h + 1][w]) {
+		DFS(h + 1, w);
+	}
+	if ((w > 0) && map[h][w - 1] && !visit[h][w - 1]) {
+		DFS(h, w - 1);
+	}
+	if ((w < W - 1) && map[h][w + 1] && !visit[h][w + 1]) {
+		DFS(h, w + 1);
+	}
+	if (h > 0) {
+		if ((w > 0) && map[h - 1][w - 1] && !visit[h - 1][w - 1]) {
+			DFS(h - 1, w - 1);
+		}
+		if ((w < W - 1) && map[h - 1][w + 1] && !visit[h - 1][w + 1]){
+			DFS(h - 1, w + 1);
+		}
+	}
+	if (h < H - 1) {
+		if ((w > 0) && map[h + 1][w - 1] && !visit[h + 1][w - 1]) {
+			DFS(h + 1, w - 1);
+		}
+		if ((w < W - 1) && map[h + 1][w + 1] && !visit[h + 1][w + 1]) {
+			DFS(h + 1, w + 1);
+		}
+	}
+}
+
+int main(void)
+{
+	W = 1;
+	H = 1;
+
+	while (1) {
+		cin >> W >> H;
+		if ((W == 0) && (H == 0)) break;
+		cnt = 0;
+		for (int i = 0; i < H; i++) {
+			for (int j = 0; j < W; j++) {
+				cin >> map[i][j];
+			}
+		}
+
+		for (int i = 0; i < H; i++) {
+			for (int j = 0; j < W; j++) {
+				if (map[i][j] && !visit[i][j]) {
+					DFS(i, j);
+					cnt+=1;
+				}
+			}
+		}
+		cout << cnt << endl;
+		cnt = 0;
+		memset(map, 0, sizeof(map));
+		memset(visit, 0, sizeof(visit));
+	}
+	return 0;
+}
